@@ -1,31 +1,36 @@
 package com.learning.dto;
 
-import java.math.BigInteger;
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import com.learning.dto.*;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
+@Data
 @Setter
 @Getter
 @AllArgsConstructor
@@ -45,21 +50,24 @@ public class Register implements Comparable<Register> {
 	@Id // it will consider this column as PK
 	@Column(name = "regid", nullable = false, unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Long id;
+	
+	
+	@NotBlank
+	private String username;
 
-	@Size(max = 50)
 	@Email
 	private String email;
 	
-	@Size(max=50)
+	
 	@NotBlank
 	private String name;
 
-	@Size(max = 100)
+	
 	@NotBlank
 	private String password;
 
-	@Size(max=100)
+	@Size(min = 3, max = 20)
 	@NotBlank
 	private String address;
 
@@ -68,4 +76,22 @@ public class Register implements Comparable<Register> {
 		// TODO Auto-generated method stub
 		return this.id.compareTo(o.getId());
 	}
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	//3rd  table
+	@JoinTable(name="user_roles",joinColumns = @JoinColumn(name="regid"),
+	inverseJoinColumns = @JoinColumn(name="roleId"))//registered user(regid) and role(roleid)
+	private Set<Role> roles = new HashSet<Role>();
+	
+	public Register(String username,String email, String password,String name, String address) {
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.address = address;
+	}
+	
+	@OneToOne(mappedBy = "register", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+	private Login login;
 }

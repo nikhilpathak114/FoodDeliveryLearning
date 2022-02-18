@@ -17,5 +17,5 @@ public interface FoodService {
 	public String deleteFoodById(Integer id) throws IdNotFoundException;
 	public Food updateFoodById(Integer id, Food food2) throws IdNotFoundException;
 	public Optional<List<Food>> getAllFoodDetails();
-	public Food getFoodByFoodType(EFOOD foodType) throws InvalidFoodType;
+	public Optional<List<Food>> getFoodByFoodType(EFOOD foodType) throws InvalidFoodType;
 }

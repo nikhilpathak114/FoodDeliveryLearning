@@ -8,11 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.learning.dto.Register;
 
 @Repository
-public interface UserRepository extends JpaRepository<Register, Integer> {
-	
-	Boolean existsByEmailAndId(String email, Integer id);
-	Boolean existsByEmailAndPassword(String email,String Password);
-	//Optional<Register> findById(Integer id);
-	//String deleteById(Integer id);
-	
+public interface UserRepository extends JpaRepository<Register, Long> {
+	Optional<Register> findByUsername(String username);
+	Boolean existsByUsername(String username);
+	Boolean existsByEmail(String email);
 }

@@ -11,15 +11,14 @@ import com.learning.dto.Register;
 import com.learning.exception.AlreadyExistsException;
 import com.learning.exception.IdNotFoundException;
 
-@Repository
 public interface RegisterService {
 	
 	//declaring all the methods for registration
 	public Register addUser(Register register) throws SQLException, AlreadyExistsException;
 	public boolean checkAuthentication(String email, String password);
-	public Register getUserById(Integer id) throws IdNotFoundException;
-	public String deleteUserById(Integer id) throws IdNotFoundException;
+	public Register getUserById(Long id) throws IdNotFoundException;
+	public String deleteUserById(Long id) throws IdNotFoundException;
 	public Optional<List<Register>> getAllUserDetails();
-	Register updateUserById(Integer id, Register register) throws IdNotFoundException;
+	Register updateUserById(Long id, Register register) throws IdNotFoundException;
 	
 }

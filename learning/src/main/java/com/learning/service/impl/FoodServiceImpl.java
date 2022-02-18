@@ -88,14 +88,14 @@ public class FoodServiceImpl implements FoodService {
 	}
 
 	@Override
-	public Food getFoodByFoodType(EFOOD foodType) throws InvalidFoodType {
+	public Optional<List<Food>> getFoodByFoodType(EFOOD foodType) throws InvalidFoodType {
 		// TODO Auto-generated method stub
 		Optional<Food> optional = foodRepository.findByFoodType(foodType);
 		if(optional.isEmpty()) {
 			throw new InvalidFoodType("Invalid Food Type");
 		}
 		else {
-			return optional.get();
+			return null;
 		}
 	}
 

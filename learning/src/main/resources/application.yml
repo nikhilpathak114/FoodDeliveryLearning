@@ -1,7 +1,4 @@
 spring:
-  jackson:
-     serialization:
-        fail-on-empty-beans: false
   datasource:
     url: jdbc:mysql://localhost:3306/foodjpa
     username: root
@@ -18,6 +15,8 @@ spring:
         physical-strategy: com.learning.utils.CustomNamingStrategy
       ddl-auto: update
 server:
-  port: 9005
-  servlet:
-    context-path: /api
+  port: 0
+fooddelivery:
+  app:
+    jwtSecret: secretkey
+    jwtExpirationMs: 86400000

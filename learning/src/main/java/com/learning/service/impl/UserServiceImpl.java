@@ -28,7 +28,7 @@ public class UserServiceImpl implements RegisterService {
 	@Transactional(rollbackFor = AlreadyExistsException.class)
 	public Register addUser(Register register) throws SQLException, AlreadyExistsException {
 		// TODO Auto-generated method stub
-		if(userRepository.existsByEmailAndId(register.getEmail(), register.getId())) {
+		if(userRepository.existsByEmail(register.getEmail())) {
 			throw new AlreadyExistsException("This record already exist.");
 		}
 			Register register2 = userRepository.save(register);
@@ -39,7 +39,7 @@ public class UserServiceImpl implements RegisterService {
 	}
 
 	@Override
-	public Register getUserById(Integer id) throws IdNotFoundException {
+	public Register getUserById(Long id) throws IdNotFoundException {
 		// TODO Auto-generated method stub
 		Optional<Register> optional = userRepository.findById(id);
 		if(optional.isEmpty()) {
@@ -52,7 +52,7 @@ public class UserServiceImpl implements RegisterService {
 
 	@Override
 	@Transactional(rollbackFor = IdNotFoundException.class)
-	public String deleteUserById(Integer id) throws IdNotFoundException {
+	public String deleteUserById(Long id) throws IdNotFoundException {
 		// TODO Auto-generated method stub
 		try {
 			Register optional = this.getUserById(id);
@@ -71,7 +71,7 @@ public class UserServiceImpl implements RegisterService {
 	}
 
 	@Override
-	public Register updateUserById(Integer id,Register register) throws IdNotFoundException {
+	public Register updateUserById(Long id,Register register) throws IdNotFoundException {
 		// TODO Auto-generated method stub
 		Optional<Register> optional = userRepository.findById(id);
 		if(optional.isEmpty()) {
@@ -94,7 +94,7 @@ public class UserServiceImpl implements RegisterService {
 	@Override
 	public boolean checkAuthentication(String email,String password) {
 		// TODO Auto-generated method stub
-		boolean check = userRepository.existsByEmailAndPassword(email, password);
+		boolean check = userRepository.existsByEmail(email);
 		return check;
 	}
 

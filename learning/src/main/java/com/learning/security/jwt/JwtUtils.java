@@ -19,7 +19,7 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
 //to provide the token
-@Component
+@Component(value = "jwtUtils")
 
 public class JwtUtils {
 	

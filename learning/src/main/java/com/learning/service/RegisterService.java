@@ -15,7 +15,7 @@ public interface RegisterService {
 	
 	//declaring all the methods for registration
 	public Register addUser(Register register) throws SQLException, AlreadyExistsException;
-	public boolean checkAuthentication(String email, String password);
+	public boolean checkAuthentication(String username, String password);
 	public Register getUserById(Long id) throws IdNotFoundException;
 	public String deleteUserById(Long id) throws IdNotFoundException;
 	public Optional<List<Register>> getAllUserDetails();

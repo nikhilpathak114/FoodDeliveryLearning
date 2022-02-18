@@ -92,9 +92,9 @@ public class UserServiceImpl implements RegisterService {
 	}
 
 	@Override
-	public boolean checkAuthentication(String email,String password) {
+	public boolean checkAuthentication(String username,String password) {
 		// TODO Auto-generated method stub
-		boolean check = userRepository.existsByEmail(email);
+		boolean check = userRepository.existsByUsername(username);
 		return check;
 	}
 

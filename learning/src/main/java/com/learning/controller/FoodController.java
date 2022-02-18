@@ -37,10 +37,10 @@ public class FoodController {
 	@Autowired
 	RegisterService registerService;
 	
-	@PostMapping("/authenticate")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	@PostMapping("/users/authenticate")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<?> authenticate(@RequestBody HashMap<String, String> map) {
-			boolean res = registerService.checkAuthentication(map.get("email"),map.get("password"));
+			boolean res = registerService.checkAuthentication(map.get("username"),map.get("password"));
 			if(res) { 
 				
 				return ResponseEntity.status(201).body("Success");
@@ -49,14 +49,14 @@ public class FoodController {
 	}
 	
 	@GetMapping("/users/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<?> getUserById(@PathVariable("id") Long id) throws IdNotFoundException{
 		Register register = registerService.getUserById(id);
 		return ResponseEntity.ok(register);
 	}
 	
 	@GetMapping("/users")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<?> getAllUserDetails() {
 		Optional<List<Register>> optional = registerService.getAllUserDetails();
 		if(optional.isEmpty()) {
@@ -68,7 +68,7 @@ public class FoodController {
 	}
 	
 	@PutMapping("/users/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> updateUserById(@PathVariable("id") Long id,@RequestBody Register register) throws IdNotFoundException, SQLException, AlreadyExistsException{
 		Register register2;
 		try {
@@ -82,7 +82,7 @@ public class FoodController {
 	}
 	
 	@DeleteMapping("/users/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> deleteUserById(@PathVariable Long id) throws IdNotFoundException {
 		String register = registerService.deleteUserById(id);
 		return ResponseEntity.ok(register);
@@ -94,7 +94,7 @@ public class FoodController {
 	private FoodService foodService;
 	
 	@PostMapping("/food")
-	@PreAuthorize("hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> addUser(@RequestBody Food food) throws SQLException, AlreadyExistsException{
 		Food result = foodService.addFood(food);
 		return ResponseEntity.status(201).body(result);
@@ -108,7 +108,7 @@ public class FoodController {
 	}
 	
 	@GetMapping("/food/")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<?> getAllFoodDetails() {
 		Optional<List<Food>> optional = foodService.getAllFoodDetails();
 		if(optional.isEmpty()) {
@@ -120,7 +120,7 @@ public class FoodController {
 	}
 	
 	@GetMapping("/food/type/{foodType}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<?> getFoodByFoodType(@PathVariable("foodType") String foodType) throws InvalidFoodType{
 		EFOOD food = EFOOD.valueOf(foodType);
 		Optional<List<Food>> optional = foodService.getFoodByFoodType(food) ;
@@ -135,7 +135,7 @@ public class FoodController {
 	
 	
 	@PutMapping("/food/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> updateFoodById(@PathVariable("id") Integer foodId,@RequestBody Food food) throws IdNotFoundException, SQLException, AlreadyExistsException{
 		Food food2;
 		try {
@@ -149,7 +149,7 @@ public class FoodController {
 	}
 	
 	@DeleteMapping("/food/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<?> deletefoodById(@PathVariable Integer id) throws IdNotFoundException {
 		String register = foodService.deleteFoodById(id);
 		return ResponseEntity.ok(register);

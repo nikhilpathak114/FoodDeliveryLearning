@@ -22,8 +22,8 @@ import com.learning.security.services.UserDetailsServiceImpl;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
 
-	@Autowired
-	private JwtUtils jwtUtils;
+	
+	private JwtUtils jwtUtils = new JwtUtils();
 	@Autowired
 	private UserDetailsServiceImpl userDetailsServiceImpl;
 	
@@ -35,6 +35,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		// TODO Auto-generated method stub
 		//do we need to parse the token?
 		try {
+			if(jwtUtils ==  null) {
+				System.out.println("null");
+			}
+			else {
+				return;
+			}
 			String jwt = parseJwt(request);
 			if(jwt != null && jwtUtils.validateJwtToken(jwt)) {
 				String username = jwtUtils.getUserNameFromJwtToken(jwt);
@@ -44,6 +50,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 				usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetails(request));
 				
 				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+				
+				
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

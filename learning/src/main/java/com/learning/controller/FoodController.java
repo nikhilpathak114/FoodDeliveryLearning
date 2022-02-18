@@ -120,6 +120,7 @@ public class FoodController {
 	}
 	
 	@GetMapping("/food/type/{foodType}")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<?> getFoodByFoodType(@PathVariable("foodType") String foodType) throws InvalidFoodType{
 		EFOOD food = EFOOD.valueOf(foodType);
 		Optional<List<Food>> optional = foodService.getFoodByFoodType(food) ;

@@ -101,7 +101,7 @@ public class FoodController {
 	}
 	
 	@GetMapping("/food/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<?> getFoodById(@PathVariable("id") Integer id) throws IdNotFoundException{
 		Food food2 = foodService.getFoodById(id);
 		return ResponseEntity.ok(food2);

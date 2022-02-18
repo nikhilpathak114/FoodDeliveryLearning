@@ -22,8 +22,8 @@ import com.learning.security.services.UserDetailsServiceImpl;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
 
-	
-	private JwtUtils jwtUtils = new JwtUtils();
+	@Autowired
+	private JwtUtils jwtUtils;
 	@Autowired
 	private UserDetailsServiceImpl userDetailsServiceImpl;
 	
